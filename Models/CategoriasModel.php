@@ -78,7 +78,7 @@ class CategoriasModel extends Query{
     }
 
     public function ver_categorias(){
-        $sql = "SELECT IdCateg, imagen, nombre, estado FROM categorias WHERE eliminado = 1";
+        $sql = "SELECT IdCateg, imagen, nombre, estado, f_reg FROM categorias WHERE eliminado = 1";
         return $this->selectAll($sql);
     }
 

@@ -87,44 +87,54 @@ class Categorias extends Controller
     public function ActualizarCategoria($idCat)
     {
         $strImg = "";
-        if (empty($_POST['nombre'])) {
-            $resp = "ERROR";
-        } else {
+
+        //if (isset($_FILES['imgCateg'])) {
+        if (file_exists($_FILES['imgCateg']['tmp_name'])) {
             $nombre = $_POST['nombre'];
-
-            if (isset($_FILES['imgCateg']) || empty($_FILES['imgCateg'])) {
-                $archivo = $_FILES['imgCateg']['name'];
-                $tipo = $_FILES['imgCateg']['type'];
-                $ruta_temp = $_FILES['imgCateg']['tmp_name'];
-                $tam = $_FILES['imgCateg']['size'];
-
-                $dataIMG = $this->model->info_categoria($idCat);
-                //Elimiando imagen anterior
-                if (is_writable($dataIMG['imagen'])) {
-                    $outPut = unlink($dataIMG['imagen']);
-                }
-                //------------------------------
-                if ($this->model->subir_imagen($idCat, $archivo, $tipo, $tam, $ruta_temp)) {
-                    $resp = "IMG-CORRECTO";
-                    if (strpos($tipo, "jpeg")) {
-                        $strTipo = "jpeg";
-                    } else if (strpos($tipo, "jpg")) {
-                        $strTipo = "jpg";
-                    } elseif (strpos($tipo, "png")) {
-                        $strTipo = "png";
-                    }
-                    $strImg = "Imagen/Categorias/" . $idCat . '.' . $strTipo;
+            $dataIMG = $this->model->info_categoria($idCat);
+            if (is_writable($dataIMG['imagen'])) { //Elimiando imagen anterior
+                if (unlink($dataIMG['imagen'])) {
+                    $out['ELIMINADO'] = "OK";
                 } else {
-                    $resp = "ERROR IMG";
+                    $out['ELIMINADO'] = "ERROR";
                 }
-            } else {
-                $strImg = ""; //no actualiza imagen
             }
-            $data = $this->model->ActualizarCategoria($idCat, $strImg, $nombre);
-            if ($data > 0) {
-                $resp = "CORRECTO";
+            $archivo = $_FILES['imgCateg']['name'];
+            $tipo = $_FILES['imgCateg']['type'];
+            $ruta_temp = $_FILES['imgCateg']['tmp_name'];
+            $tam = $_FILES['imgCateg']['size'];
+
+            //subo imagen al servidor...
+            if ($this->model->subir_imagen($idCat, $archivo, $tipo, $tam, $ruta_temp)) {
+                $out['SUBIDO'] = "OK";
             } else {
-                $resp = "ERROR REGISTRO";
+                $out['SUBIDO'] = "ERROR";
+            }
+            if (strpos($tipo, "jpeg")) {
+                $strTipo = "jpeg";
+            } else if (strpos($tipo, "jpg")) {
+                $strTipo = "jpg";
+            } elseif (strpos($tipo, "png")) {
+                $strTipo = "png";
+            }
+            if ($out['ELIMINADO'] = "OK" && $out['SUBIDO'] = "OK") {
+                $strImg = "Imagen/Categorias/" . $idCat . '.' . $strTipo;
+                $data = $this->model->ActualizarCategoria($idCat, $strImg, $nombre);
+                if ($data > 0) {
+                    $resp = "CORRECTO";
+                } else {
+                    $resp = "ERROR REGISTRO";
+                }
+            }
+        } else {
+            if (isset($_POST['nombre'])) {
+                $nombre = $_POST['nombre'];
+                $data = $this->model->ActualizarCategoria($idCat, $strImg, $nombre);
+                if ($data > 0) {
+                    $resp = "CORRECTO";
+                } else {
+                    $resp = "ERROR REGISTRO";
+                }
             }
         }
         echo json_encode($resp);

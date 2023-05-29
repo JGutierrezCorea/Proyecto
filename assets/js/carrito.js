@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         myModal.show();
     })
 
+    //FILTRAR PRODUCTOS
     inputBuscar.addEventListener('keyup', function (e) {
         console.log("INGRSO BSC")
         const url = base_url + 'principal/buscarProducto/' + e.target.value;
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     html = `<div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="${ base_url + 'principal/detalle/' + product.IdProducto }">
-                            <img src="${ product.imagen }" class="card-img-top" alt="...">
+                            <img src="${ base_url + product.imagen }" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">

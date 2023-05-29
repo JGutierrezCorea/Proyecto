@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-12">
                     <ul class="list-inline shop-top-menu pb-3 pt-1">
                         <li class="list-inline-item">
-                            <a class="h3 text-dark text-decoration-none mr-3" href="#">Productos por Categoria</a>
+                            <a class="h2 text-dark text-decoration-none mr-3" href="#">Categoria Seleccionada - <?php echo $data['title-sub']['nombre']; ?></a>
                         </li>
                     </ul>
                 </div>

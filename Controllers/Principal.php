@@ -24,7 +24,7 @@ class Principal extends Controller
     public function tienda($page)
     {
         $pagina = (empty($page))?1:$page;
-        $porPagina = 5;
+        $porPagina = 9;
         $desde = ($pagina - 1)*$porPagina;
        
         $data['productos'] = $this->model->getProductos($desde,$porPagina);
@@ -64,7 +64,7 @@ class Principal extends Controller
         }
         
         $pagina = (empty($page))?1:$page;
-        $porPagina = 5;
+        $porPagina = 9;
         $desde = ($pagina - 1)*$porPagina;
         $data['pagina'] = $pagina;
         $total = $this->model->getTotalProductosCat($IdCateg);
@@ -72,6 +72,7 @@ class Principal extends Controller
         $data['total'] = ceil($total['total']/$porPagina);
         $data['IdCateg'] = $IdCateg;
         $data['title'] = 'Categoria';
+        $data['title-sub'] = $this->model->obtenerNombreCategoria($IdCateg);
         $this->views->getView('principal', "categorias", $data);
     }
 

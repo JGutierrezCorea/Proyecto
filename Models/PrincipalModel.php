@@ -24,6 +24,12 @@ class PrincipalModel extends Query{
         return $this->select($sql);
     }
 
+    //Obtener nombre de la Categoria
+    public function obtenerNombreCategoria($id){
+        $sql = "SELECT nombre FROM categorias WHERE IdCateg=$id";
+        return $this->select($sql);
+    }
+
     //Productos relacionados con la categoria.
     public function getProductosCat($IdCateg,$desde,$pagina){
         $sql = "SELECT p.IdProducto, p.nombre, p.imagen, p.marca, p.precio, c.nombre as categoria FROM productos p, categorias c WHERE p.IdCateg=c.IdCateg AND p.estado = 0 and p.eliminado = 1 and p.cantidad >= 1 and p.IdCateg = $IdCateg LIMIT $desde,$pagina";
@@ -39,7 +45,7 @@ class PrincipalModel extends Query{
     public function buscarProducto($valor){
         $sql = "SELECT p.IdProducto,p.nombre, p.imagen,p.marca,p.precio
         FROM productos p, categorias c 
-        WHERE p.IdCateg=c.IdCateg AND p.estado=0 AND p.eliminado = 1 AND p.nombre LIKE '%".$valor."%' LIMIT 5 ";
+        WHERE p.IdCateg=c.IdCateg AND p.estado=0 AND p.eliminado = 1 AND c.estado=0 AND c.eliminado=1 AND p.nombre LIKE '%".$valor."%' LIMIT 5 ";
         return $this->selectAll($sql);
     }
 

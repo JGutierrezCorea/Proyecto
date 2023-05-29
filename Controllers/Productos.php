@@ -29,6 +29,7 @@ class Productos extends Controller
     public function ActualizarProducto($idProd)
     {
         $strImg = "";
+
         if (empty($_POST['nombre']) || empty($_POST['cbCateg']) || empty($_POST['detalles']) || empty($_POST['marca']) || empty($_POST['modelo']) || empty($_POST['color']) || empty($_POST['dimensiones']) || empty($_POST['peso_bruto']) || empty($_POST['peso_neto']) || empty($_POST['garantia']) || empty($_POST['precio']) || empty($_POST['cantidad'])) {
             $resp = "ERROR";
         } else {
@@ -45,7 +46,78 @@ class Productos extends Controller
             $precio = $_POST['precio'];
             $cantidad = $_POST['cantidad'];
 
-            if (isset($_FILES['imgProducto'])|| empty($_FILES['imgProducto'])) {
+            if (file_exists($_FILES['imgProducto']['tmp_name'])) {
+                //hay imagen
+                
+                $dataIMG = $this->model->info_producto($idProd);
+                //Elimiando imagen anterior
+                if (is_writable($dataIMG['imagen'])) {
+                    if (unlink($dataIMG['imagen'])) {
+                        $out['ELIMINADO'] = "OK";
+                    } else {
+                        $out['ELIMINADO'] = "ERROR";
+                    }
+                }
+
+                //Datos para subir la nuevo de imagen
+                $archivo = $_FILES['imgProducto']['name'];
+                $tipo = $_FILES['imgProducto']['type'];
+                $ruta_temp = $_FILES['imgProducto']['tmp_name'];
+                $tam = $_FILES['imgProducto']['size'];
+
+                if ($this->model->subir_imagen($idProd, $archivo, $tipo, $tam, $ruta_temp)) {
+                    $out['SUBIDO'] = "OK";
+                } else {
+                    $out['SUBIDO'] = "ERROR";
+                }
+                
+                if (strpos($tipo, "jpeg")) {
+                    $strTipo = "jpeg";
+                } else if (strpos($tipo, "jpg")) {
+                    $strTipo = "jpg";
+                } elseif (strpos($tipo, "png")) {
+                    $strTipo = "png";
+                }
+                $strImg = "Imagen/Productos/" . $idProd . '.' . $strTipo;
+
+                if ($out['ELIMINADO'] = "OK" && $out['SUBIDO'] = "OK") {
+                    $data = $this->model->ActualizarProducto($idProd, $idcat, $strImg, $nombre, $detalles, $marca, $modelo, $color, $peso_bruto, $peso_neto, $dimensiones, $garantia, $precio, $cantidad);
+                    if ($data > 0) {
+                        $resp = "CORRECTO";
+                    } else {
+                        $resp = "ERROR REGISTRO";
+                    }
+                } else {
+                    $resp = "ERROR";
+                }
+            } else {
+                //no hay imagen
+                $data = $this->model->ActualizarProducto($idProd, $idcat, $strImg, $nombre, $detalles, $marca, $modelo, $color, $peso_bruto, $peso_neto, $dimensiones, $garantia, $precio, $cantidad);
+                if ($data > 0) {
+                    $resp = "CORRECTO";
+                } else {
+                    $resp = "ERROR REGISTRO";
+                }
+            }
+        }
+
+        /**if (empty($_POST['nombre']) || empty($_POST['cbCateg']) || empty($_POST['detalles']) || empty($_POST['marca']) || empty($_POST['modelo']) || empty($_POST['color']) || empty($_POST['dimensiones']) || empty($_POST['peso_bruto']) || empty($_POST['peso_neto']) || empty($_POST['garantia']) || empty($_POST['precio']) || empty($_POST['cantidad'])) {
+            $resp = "ERROR";
+        } else {
+            $idcat = $_POST['cbCateg'];
+            $nombre = $_POST['nombre'];
+            $detalles = $_POST['detalles'];
+            $marca = $_POST['marca'];
+            $modelo = $_POST['modelo'];
+            $color = $_POST['color'];
+            $peso_bruto = $_POST['peso_bruto'];
+            $peso_neto = $_POST['peso_neto'];
+            $dimensiones = $_POST['dimensiones'];
+            $garantia = $_POST['garantia'];
+            $precio = $_POST['precio'];
+            $cantidad = $_POST['cantidad'];
+
+            if (isset($_FILES['imgProducto'])|| !empty($_FILES['imgProducto'])) {
 
                 $archivo = $_FILES['imgProducto']['name'];
                 $tipo = $_FILES['imgProducto']['type'];
@@ -84,7 +156,7 @@ class Productos extends Controller
             } else {
                 $resp = "ERROR REGISTRO";
             }
-        }
+        }*/
         echo json_encode($resp);
         die();
     }

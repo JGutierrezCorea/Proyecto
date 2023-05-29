@@ -5,19 +5,20 @@ const nombre = document.getElementById("nombre");
 const img = document.getElementById("imgCateg");
 
 document.addEventListener("DOMContentLoaded", function () {
-  tbCategorias = $("#tbCategorias").DataTable({
-    serverSide: true,
+  tbCategorias = $("#tbCategorias").DataTable({  
     ajax: {
-      url: base_url + "categorias/cargar_table_categorias",
-      dataSrc: "",
-    },
-    columns: [
-      { data: "IdCateg" },
-      { data: "imagen" },
-      { data: "nombre" },
-      { data: "estado" },
-      { data: "acciones" },
-    ],
+          destroy:true,
+          processesing: true,
+          url: base_url + "categorias/cargar_table_categorias",
+          dataSrc: "",
+      },
+      columns: [
+        { data: "IdCateg" },
+        { data: "nombre" },
+        { data: "f_reg" },
+        { data: "estado" },
+        { data: "acciones" },
+      ],
   });
 });
 

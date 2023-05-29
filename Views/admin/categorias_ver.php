@@ -48,17 +48,11 @@ include_once 'Views/templade-admin/header.php';
                       aria-describedby="example2_info" id="tbCategorias">
                       <thead>
                         <tr>
-                          <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                            aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
-                            Id</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                            aria-label="Browser: activate to sort column ascending">Imagen</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                            aria-label="Platform(s): activate to sort column ascending">Nombre de la Categoria</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                            aria-label="CSS grade: activate to sort column ascending">Estado</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
-                            aria-label="CSS grade: activate to sort column ascending">Acciones</th>
+                          <th>N°</th>
+                          <th>Nombre de la Categoria</th>
+                          <th>Fecha de Registro</th>
+                          <th>Estado</th>
+                          <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -95,8 +89,9 @@ include_once 'Views/templade-admin/header.php';
               <div class="row">
                 <div class="col-md-12">
                   <div class="col-12">
-                    <img id="img_preview" src="<?php echo BASE_URL . 'Imagen/Categorias/' ?>categoria-default.jpg"
-                      class="product-image" alt="Product Image">
+                    <img id="img_preview" src="" class="product-image" alt="Product Image">
+                    <!--<img id="img_preview" src="<?php echo BASE_URL . 'Imagen/Categorias/' ?>categoria-default.jpg"
+                      class="product-image" alt="Product Image">-->
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Imagen de Producto</label>
@@ -141,22 +136,6 @@ include_once 'Views/templade-admin/header.php';
 <!-- /.content-wrapper -->
 
 <?php include_once 'Views/templade-admin/footer.php'; ?>
-
-<!-- DataTables  & Plugins -->
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script
-  src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script
-  src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/jszip/jszip.min.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/pdfmake/pdfmake.min.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/pdfmake/vfs_fonts.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script src="<?php echo BASE_URL . 'assets/js' ?>/admin/categorias.js"></script>
 

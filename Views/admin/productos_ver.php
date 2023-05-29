@@ -117,7 +117,7 @@ include_once 'Views/templade-admin/header.php';
                     <p id="prod_peso"></p>
                   </li>
                   <li class="small">
-                    <span class="fa-li"><i class="fas fa-ruler-combined"></i></span>
+                    <span class="fa-li"><i class="fas fa-palette"></i></span>
                     <p id="prod_color"></p>
                   </li>
                   <li class="small">

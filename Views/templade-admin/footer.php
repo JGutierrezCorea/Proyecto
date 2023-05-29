@@ -13,17 +13,33 @@
 
 <!-- jQuery -->
 <script src="<?php echo BASE_URL.'assets/dist/'; ?>plugins/jquery/jquery.min.js"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script
+  src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script
+  src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/jszip/jszip.min.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/pdfmake/pdfmake.min.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/pdfmake/vfs_fonts.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="<?php echo BASE_URL . 'assets/dist/'; ?>plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
 <!-- Bootstrap -->
 <script src="<?php echo BASE_URL.'assets/dist/'; ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="<?php echo BASE_URL.'assets/dist/'; ?>plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo BASE_URL.'assets/'; ?>dist/js/adminlte.js"></script>
+
 
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
 
-<!-- PAGE PLUGINS -->
+
 <!-- jQuery Mapael -->
 <script src="<?php echo BASE_URL.'assets/dist/'; ?>plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="<?php echo BASE_URL.'assets/dist/'; ?>plugins/raphael/raphael.min.js"></script>
@@ -32,11 +48,8 @@
 <!-- ChartJS -->
 <script src="<?php echo BASE_URL.'assets/dist/'; ?>plugins/chart.js/Chart.min.js"></script>
 
-<!-- SESION -->
-<script src="<?php echo BASE_URL.'assets/js/'; ?>admin/sesion.js"></script>
-
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo BASE_URL.'assets/'; ?>dist/js/pages/dashboard2.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes)
+<script src="<?php echo BASE_URL.'assets/'; ?>dist/js/pages/dashboard2.js"></script> -->
 
 <script>
     const base_url = "<?php echo BASE_URL; ?>";
@@ -84,4 +97,22 @@
   }
 
   toggleSwitch.addEventListener('change', switchTheme, false);
+
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
 </script>
+<!-- SESION -->
+<script src="<?php echo BASE_URL.'assets/js/'; ?>admin/sesion.js"></script>
